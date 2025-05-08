@@ -1,4 +1,4 @@
-I worked upon this project during my CS 212 Data Science Ethics class. The core objective was to develop a high-performing classifier while ensuring transparency and interpretability of its decision-making process, particularly concerning potential biases.
+I worked upon this project during my CS 212 Data Science Ethics class. The core objective was to develop a high-performing classifier while ensuring transparency and interpretability of its decision-making process, particularly concerning potential biases, using LIME.
 
 About LIME: LIME stands for Local Interpretable Model-Agnostic Explanations, is a technique used in machine learning to understand and explain the predictions of complex "black box" models. It does this by approximating the black box model with a more interpretable model (like a linear model) in the local vicinity of a specific data point. Following is the resume description.
 
