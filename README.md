@@ -32,7 +32,7 @@ LIME explains complex "black box" model predictions by approximating them with s
   - Integrated post-hoc interpretability tools for ethical assurance.
   - Improved model explainability score by 30% (based on AI ethics rubric).
 
-🧰 Tech Stack
+## 🧰 Tech Stack
   - Python – Core language
   - Jupyter Notebook – Analysis and experimentation
   - Pandas, NumPy, Scikit-learn – Data wrangling and encoding
@@ -40,13 +40,13 @@ LIME explains complex "black box" model predictions by approximating them with s
   - LIME – Interpretability framework
   - Matplotlib / Seaborn – Visualizations and explanation charts
 
-📈 Impact
+## 📈 Impact
   - 🧠 Delivered interpretable AI without compromising accuracy
   - 🔍 Enabled localized explanations for individual predictions
   - 📊 Improved stakeholder trust and explainability score
   - ⚖️ Advanced ethical AI development by making model decisions transparent
 
-🧩 Future Improvements
+## 🧩 Future Improvements
   - Extend to SHAP for comparison with LIME
   - Integrate counterfactual explanations
   - Build an interactive dashboard for explanation visualization
