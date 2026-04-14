@@ -35,5 +35,3 @@ A transparent income prediction pipeline that pairs a high-accuracy XGBoost clas
 - Extend the ethical audit to evaluate demographic fairness across race and gender subgroups, bridging interpretability with bias detection
 
 ---
-
-> *Built during CS 212 – Data Science Ethics. Focused on making AI decisions auditable, transparent, and accountable — not just accurate.*
