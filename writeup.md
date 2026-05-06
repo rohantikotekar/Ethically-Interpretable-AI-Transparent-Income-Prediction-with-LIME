@@ -1,4 +1,4 @@
-# Writeup
+# Writeup -Rohan Vijay Tikotekar
 
 ---
 
@@ -133,7 +133,7 @@ The diagnostic prints logged every 500 steps provide a direct window into conver
 | 500 | ~0.15 | ~0.021 | Early — actor still exploring, Q-function not yet shaped |
 | 1,500 | ~0.38 | ~0.035 | Converging — delta growing, critic stabilizing |
 | 3,000 | ~0.61 | ~0.044 | Nearly converged — diminishing returns on further steps |
-| **5,000 (chosen)** | **+0.729** | **~0.049** | ✅ Stable — both metrics plateaued, no saturation |
+| **5,000 (chosen)** | **+0.729** | **~0.049** | Stable — both metrics plateaued, no saturation |
 | 8,000+ | Expected plateau / slight overfit | ~0.050 (saturated) | Risk of Q-function over-optimizing on static dataset |
 
 The plateau of both `q_mean` and `delta_mag` between 3,000 and 5,000 steps confirms the actor had fully utilized its correction budget and the critic had converged. Continuing past 5,000 steps in a purely offline regime would over-optimize the critic on the fixed replay buffer, increasing the risk of the exploitation-of-blind-spots failure observed in the live rollouts.
@@ -174,9 +174,9 @@ This provides a strict, data-driven buffer — giving the residual policy just e
 | Margin | Behaviour | Verdict |
 |---|---|---|
 | 0% (no margin) | Clips exactly at the dataset boundary; any covariate-shifted state immediately hits the wall; maximum deadlock risk | Too tight — guarantees deadlocks |
-| **2% (chosen)** | Principled data-driven buffer; sufficient for nominal rollouts but too tight for recovery manoeuvres under covariate shift | ⚠️ Chosen — but caused deadlocks in deployment |
+| **2% (chosen)** | Principled data-driven buffer; sufficient for nominal rollouts but too tight for recovery manoeuvres under covariate shift |  Chosen — but caused deadlocks in deployment |
 | 5% | Gives BC policy meaningful slack to execute recovery actions; reduces deadlock risk at the cost of a slightly wider safe envelope | Better for robustness |
-| Kinematic limit (ideal) | Replace dataset boundary with true joint velocity / position limits from the URDF; decouples safety from the demonstrator's style | ✅ Correct production approach |
+| Kinematic limit (ideal) | Replace dataset boundary with true joint velocity / position limits from the URDF; decouples safety from the demonstrator's style |  Correct production approach |
 
 The post-mortem confirms that 2% was insufficient: the BC policy required recovery actions marginally outside the human demonstration envelope, and the shield hard-clipped them, producing the observed kinematic deadlocks.
 
