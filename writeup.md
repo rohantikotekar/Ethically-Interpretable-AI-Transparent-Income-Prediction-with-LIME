@@ -84,7 +84,7 @@ The BC backbone is already highly competent (80% success) so we do not need macr
 | Bound | Expected Behaviour | Verdict |
 |---|---|---|
 | 0.02 | `delta_mag` would saturate below the z-axis correction threshold; actor cannot close the ~1 cm gap | Too small — undercorrects |
-| **0.05 (chosen)** | `delta_mag` stabilized at 0.049; actor fully utilizes the budget without saturating | ✅ Chosen |
+| **0.05 (chosen)** | `delta_mag` stabilized at 0.049; actor fully utilizes the budget without saturating | Chosen |
 | 0.10 | Correction budget large enough for RL to partially override BC trajectory; risk of covariate shift amplification | Too large — destabilizes BC prior |
 
 The key signal is that `delta_mag ≈ 0.049` at convergence — the actor is using ~98% of the 0.05 budget. This indicates 0.05 is the tightest bound that still allows a full correction. Dropping to 0.02 would have left the actor unable to reach the object; increasing to 0.10 would have given the RL agent enough freedom to corrupt the BC's already-correct x, y approach.
