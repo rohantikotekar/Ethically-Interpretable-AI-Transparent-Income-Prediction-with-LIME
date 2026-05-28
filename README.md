@@ -115,43 +115,17 @@ SP-LIME was used to identify a diverse subset of representative explanations acr
 
 ## Results and Output
 
-### Model Performance
+* The baseline XGBoost model achieved approximately **69% accuracy** on the COMPAS recidivism dataset.
+* Fairness evaluation revealed significant racial disparities in prediction outcomes, especially in **false positive rates** across demographic groups.
+* After applying bias mitigation techniques, the **Demographic Parity Difference improved by ~18%** and subgroup prediction consistency increased.
+* The debiased models maintained competitive predictive performance while reducing unfair classification behavior.
+* Comparative evaluation showed that Logistic Regression produced better interpretability, while XGBoost delivered the highest predictive accuracy.
 
-* Achieved approximately **86% test accuracy**
-* Strong classification performance on imbalanced socioeconomic data
-* Stable generalization across unseen samples
+### Key Findings
 
-### Interpretability Results
-
-LIME explanations consistently identified influential features such as:
-
-* Education level
-* Occupation category
-* Weekly working hours
-* Age
-* Capital gain
-* Marital status
-
-Each prediction included weighted feature contributions, enabling transparent inspection of local decision boundaries.
-
-### Global Explanation Coverage
-
-Using SP-LIME:
-
-* 25 representative instances were selected
-* ~80% explanation coverage was achieved
-* Redundancy across explanations was significantly reduced
-
-### Ethical Analysis
-
-An interpretability-focused ethical audit was conducted to evaluate:
-
-* Transparency
-* Accountability
-* Explainability quality
-* Potential bias exposure
-
-The addition of explainability mechanisms improved the overall interpretability and auditability of the pipeline compared to a standalone black-box classifier.
+* Fairness optimization reduced demographic imbalance without major accuracy degradation.
+* Bias mitigation improved fairness metrics while preserving model stability.
+* The project demonstrated the practical tradeoff between predictive accuracy and algorithmic fairness in criminal justice AI systems.
 
 ---
 
