@@ -1,37 +1,215 @@
-# Ethically Interpretable AI
-### Transparent Income Prediction with LIME
-
+# FairLens: Locally Interpretable Model-Agnostic Explanantions for Income Predictions
 ---
 
 ## Problem
 
-Most high-performing ML models are black boxes. They produce predictions with impressive accuracy — but offer no explanation for why a decision was made. In high-stakes domains like income classification, this opacity is a serious problem. Stakeholders — whether they're auditors, policymakers, or the individuals being classified — have no way to scrutinize the model's reasoning. Without that transparency, bias can go undetected, decisions can't be challenged, and trust is nearly impossible to build. Accuracy alone isn't enough when the decisions affect people's lives.
+Modern machine learning models often optimize heavily for predictive accuracy while sacrificing interpretability. In high-impact domains such as income classification, black-box predictions create major concerns around transparency, fairness, and accountability.
+
+Traditional ensemble models like XGBoost can achieve strong performance on tabular datasets, but they do not provide interpretable reasoning for individual predictions. This makes it difficult to:
+
+* Audit model behavior
+* Detect hidden bias
+* Validate decision consistency
+* Explain outcomes to stakeholders
+
+The objective of this project was to design an interpretable ML pipeline capable of maintaining high classification accuracy while generating locally explainable predictions.
 
 ---
 
 ## Solution
 
-A transparent income prediction pipeline that pairs a high-accuracy XGBoost classifier with LIME (Local Interpretable Model-agnostic Explanations) — so every prediction comes with a human-readable reason. LIME works by approximating the complex model locally around each prediction using a simpler, interpretable model, answering the question: *"Why did the model make this decision for this specific person?"* The goal was to match black-box performance without sacrificing explainability, auditability, or ethical accountability — proving that transparency and accuracy aren't a tradeoff.
+This project implements an explainable binary classification pipeline using **XGBoost** for predictive modeling and **LIME (Local Interpretable Model-Agnostic Explanations)** for post-hoc interpretability.
+
+The system predicts whether an individual's annual income exceeds $50K using demographic and employment-related attributes from the UCI Adult Income dataset.
+
+To address model opacity, LIME generates local surrogate explanations around individual predictions by approximating the complex decision boundary with an interpretable linear model. This enables feature-level attribution for every prediction and provides transparency into the model's reasoning process.
+
+The project focuses on balancing:
+
+* Predictive performance
+* Local interpretability
+* Ethical transparency
+* Explanation coverage
 
 ---
 
 ## Implementation
 
-- **Dataset:** UCI Adult Income dataset (~48K records, 14 features)
-- **Model:** XGBoost gradient boosting classifier — 86% test accuracy
-- **Custom Preprocessing Pipeline:** Built a categorical encoding pipeline that retains feature semantics across 9+ categorical variables, keeping explanations meaningful and human-interpretable rather than reducing features to abstract numbers
-- **Local Explanations with LIME:** Generated instance-level explanations for individual predictions, pinpointing the features — like `age`, `hours-per-week`, occupation, and education level — that drove each outcome
-- **Global Insight via Submodular Pick:** Applied LIME's submodular pick algorithm to select 25 maximally diverse instances, achieving 80% explanation coverage across the dataset with minimal redundancy
-- **Ethical Audit:** Conducted a post-hoc interpretability assessment using an AI ethics rubric, identifying transparency gaps in the black-box model and improving the overall explainability score by 30%
-- **Stack:** Python, XGBoost, LIME, scikit-learn, Pandas, NumPy, Matplotlib, Seaborn, Jupyter Notebook
+### Dataset
+
+* **Dataset:** UCI Adult Income Dataset
+* **Records:** ~48,000 instances
+* **Features:** 14 structured attributes
+* **Target Variable:** Income class (`<=50K` or `>50K`)
+
+### Feature Engineering & Preprocessing
+
+A custom preprocessing pipeline was developed to preserve semantic consistency across categorical features while maintaining compatibility with tree-based learning.
+
+#### Preprocessing Steps
+
+* Missing value handling
+* Label encoding / categorical transformation
+* Numerical feature normalization where required
+* Train-test split using stratified sampling
+
+#### Key Features
+
+* Age
+* Education
+* Occupation
+* Marital status
+* Hours-per-week
+* Capital gain/loss
+* Workclass
+
+### Model Architecture
+
+#### XGBoost Classifier
+
+The core predictive model uses gradient-boosted decision trees through XGBoost.
+
+#### Training Objectives
+
+* Binary logistic classification
+* Optimized for generalization on structured tabular data
+* Reduced overfitting using boosting regularization
+
+#### Evaluation Metrics
+
+* Accuracy
+* Precision
+* Recall
+* F1-score
+
+### Explainability Layer
+
+#### LIME Explanations
+
+LIME was integrated to generate instance-level explanations by:
+
+1. Sampling perturbed data points near a prediction
+2. Evaluating local model behavior
+3. Fitting an interpretable surrogate model
+4. Ranking feature contributions
+
+This allowed direct interpretation of why a prediction was classified as high-income or low-income.
+
+#### Submodular Pick (SP-LIME)
+
+SP-LIME was used to identify a diverse subset of representative explanations across the dataset. This improved global understanding of model behavior while minimizing redundant explanations.
+
+### Tech Stack
+
+* Python
+* XGBoost
+* LIME
+* scikit-learn
+* Pandas
+* NumPy
+* Matplotlib
+* Seaborn
+* Jupyter Notebook
 
 ---
 
-## Future Goals
+## Results and Output
 
-- Integrate SHAP (SHapley Additive Explanations) and run a head-to-head comparison with LIME across accuracy, stability, and interpretability
-- Add counterfactual explanations to answer: *"What would need to change for a different prediction?"* — making the model actionable, not just explainable
-- Build an interactive dashboard where users can query predictions and view explanations in real time, without needing to read code
-- Extend the ethical audit to evaluate demographic fairness across race and gender subgroups, bridging interpretability with bias detection
+### Model Performance
+
+* Achieved approximately **86% test accuracy**
+* Strong classification performance on imbalanced socioeconomic data
+* Stable generalization across unseen samples
+
+### Interpretability Results
+
+LIME explanations consistently identified influential features such as:
+
+* Education level
+* Occupation category
+* Weekly working hours
+* Age
+* Capital gain
+* Marital status
+
+Each prediction included weighted feature contributions, enabling transparent inspection of local decision boundaries.
+
+### Global Explanation Coverage
+
+Using SP-LIME:
+
+* 25 representative instances were selected
+* ~80% explanation coverage was achieved
+* Redundancy across explanations was significantly reduced
+
+### Ethical Analysis
+
+An interpretability-focused ethical audit was conducted to evaluate:
+
+* Transparency
+* Accountability
+* Explainability quality
+* Potential bias exposure
+
+The addition of explainability mechanisms improved the overall interpretability and auditability of the pipeline compared to a standalone black-box classifier.
+
+---
+
+## Getting Started
+
+### Clone Repository
+
+```bash id="x1a2bc"
+git clone https://github.com/rohantikotekar/Ethically-Interpretable-AI-Transparent-Income-Prediction-with-LIME.git
+cd Ethically-Interpretable-AI-Transparent-Income-Prediction-with-LIME
+```
+
+### Install Dependencies
+
+```bash id="n82klm"
+pip install -r requirements.txt
+```
+
+### Launch Notebook
+
+```bash id="p0q1rs"
+jupyter notebook
+```
+
+Run the notebook:
+
+```bash id="w7t8uv"
+Copy_of_CS_STAT_108_212_Assignment2 (2).ipynb
+```
+
+---
+
+## Future Scope
+
+### SHAP Integration
+
+Integrate SHAP (SHapley Additive Explanations) to compare explanation consistency, stability, and computational efficiency against LIME.
+
+### Counterfactual Explanations
+
+Extend the framework with counterfactual reasoning to answer:
+
+> "What minimum feature changes would alter the prediction outcome?"
+
+### Fairness Evaluation
+
+Incorporate demographic fairness metrics across race, gender, and socioeconomic subgroups to detect bias amplification.
+
+### Interactive Explainability Dashboard
+
+Develop a real-time explainability interface for:
+
+* Prediction visualization
+* Feature attribution analysis
+* User-driven inference inspection
+
+### Production Deployment
+
+Containerize and deploy the pipeline using Flask/FastAPI with scalable inference endpoints and explanation APIs.
 
 ---
